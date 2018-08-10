@@ -1,7 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
-
 var app = express();
 
 // Logging middleware
@@ -12,6 +11,10 @@ var app = express();
 //
 // app.use(logger);
 
+// View Engine
+app.set('view engine','ejs');
+app.set('views', path.join(__dirname, 'views'));
+
 // Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}))
@@ -19,23 +22,8 @@ app.use(bodyParser.urlencoded({extended:false}))
 // Set Static path
 app.use(express.static(path.join(__dirname, 'public')))
 
-var people = [
-  {
-    name: 'jeff',
-    age: 30
-  },
-  {
-    name: 'Sara',
-    age: 22
-  },
-  {
-    name: 'Bill',
-    age: 40
-  }
-]
-
 app.get('/',function(req,res){
-  res.json(people)
+  res.render('index')
 });
 
 app.listen(3000, function(){
