@@ -4,12 +4,21 @@ var path = require('path');
 
 var app = express();
 
-var logger = function(req,res,next){
-  console.log('Logging...');
-  next();
-}
+// Logging middleware
+// var logger = function(req,res,next){
+//   console.log('Logging...');
+//   next();
+// }
+//
+// app.use(logger);
 
-app.use(logger);
+// Body parser middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:false}))
+
+// Set Static path
+app.use(express.static(path.join(__dirname, 'public')))
+
 
 app.get('/',function(req,res){
   res.send('Hello World')
